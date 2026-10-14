@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { StoryblokComponent, useStoryblok, useStoryblokApi } from '@storyblok/react';
 import { useParams } from 'react-router';
 
-const VERSION = 'published';
+const VERSION = 'draft';
 
 // On the root path the URL has no slug. Open the first of these stories that exists:
 // `portfolio` for this demo, or the starter's `home` story in a space that only has the blueprint.
