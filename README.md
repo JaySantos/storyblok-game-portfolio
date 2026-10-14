@@ -17,7 +17,7 @@ The page renders `games_page` > `game_grid` > `game_card`. A card holds only a r
 
 ## Run it
 
-You need a Storyblok space with the content model above. The sample content is not in this repo.
+You need a Storyblok space with the content model above. The sample content is not in this repo. The model and the content were created through Storyblok's MCP server with an AI assistant, and the prompts are in [AI.md](AI.md), so you can reuse them to recreate both in a new space.
 
 1. Install dependencies:
 
