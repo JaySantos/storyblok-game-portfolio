@@ -64,14 +64,14 @@ The prompt, in the improved form I would use now (it assumes the model from Prom
 ```
 Create 20 games, 5 genres and 5 studios, organize them in three folders (Games, Genres, Studios)
 
-for each game create a 300x400 image for the game cover, have all games reference a studio
+for each game create a 300x400 image for the game cover, have all games reference a studio and a genre
 
 publish 15 of the 20 games
 
 Create a page called portfolio similar to home where the games are shown in a grid, each element of the grid is a game_card and shows each game's cover. Also write in the card the name of the game, its genre and the studio
 ```
 
-This differs from what I first wrote. My original did not ask for the folders or the page. I asked for them in follow-ups: organise everything in folders named Games, Studios and Genres, one `games_page` with a grid of 20 cards, and spread the 5 drafts across genres and studios. It also did not ask for the name, genre and studio to be written on the card: the name was painted on the cover image, and the genre and studio were added later as text under the title. In what was built, the card text comes from the game's fields, resolved through the `game` reference, and the page title "Our Portfolio" is a fixed heading in the React component, not content in Storyblok. The improved version has not been run as written.
+This differs from what I first wrote. My original asked only for a studio reference, because genre was still a text field then. It also did not ask for the folders or the page. I asked for them in follow-ups: organise everything in folders named Games, Studios and Genres, one `games_page` with a grid of 20 cards, and spread the 5 drafts across genres and studios. It also did not ask for the name, genre and studio to be written on the card: the name was painted on the cover image, and the genre and studio were added later as text under the title. In what was built, the card text comes from the game's fields, resolved through the `game` reference, and the page title "Our Portfolio" is a fixed heading in the React component, not content in Storyblok. The improved version has not been run as written.
 
 **What it produced** (from my original prompt and follow-ups): 5 studios, 20 games (4 per genre, 4 per studio) and 5 genre stories, in three folders. Each game has a studio reference and its own cover image. It also made a `portfolio` page with one grid of 20 cards. 15 games are published and 5 are drafts.
 
