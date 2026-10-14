@@ -32,19 +32,31 @@
 	cursor: pointer;
 }
 
-.game-card__name {
+.game-card__caption {
 	position: absolute;
 	right: 0;
 	bottom: 0;
 	left: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
 	padding: 2.5rem 0.75rem 0.75rem;
 	background: linear-gradient(to top, rgb(0 0 0 / 0.75), transparent);
 	color: #fff;
+	text-align: left;
+	text-shadow: 0 1px 3px rgb(0 0 0 / 0.6);
+}
+
+.game-card__name {
 	font-size: 1.1rem;
 	font-weight: 700;
 	line-height: 1.2;
-	text-align: left;
-	text-shadow: 0 1px 3px rgb(0 0 0 / 0.6);
+}
+
+.game-card__details {
+	font-size: 0.8rem;
+	line-height: 1.2;
+	opacity: 0.9;
 }
 
 .game-card__open img {

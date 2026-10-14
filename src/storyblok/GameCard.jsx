@@ -14,6 +14,10 @@ export default function GameCard({ blok }) {
 		return null;
 	}
 	const { name, cover } = game.content;
+	// Genre and studio are references too; they are objects when resolved, strings otherwise.
+	const genreName = typeof game.content.genre === 'object' ? game.content.genre.content.name : null;
+	const studioName = typeof game.content.studio === 'object' ? game.content.studio.content.name : null;
+	const details = [genreName, studioName].filter(Boolean).join(' · ');
 	const close = () => dialogRef.current?.close();
 
 	return (
@@ -27,8 +31,11 @@ export default function GameCard({ blok }) {
 				{cover?.filename && (
 					<img src={cover.filename} alt={cover.alt || name} width="300" height="400" />
 				)}
-				{/* The name is real text from the game's name field, not part of the cover image. */}
-				<span className="game-card__name">{name}</span>
+				{/* Real text from the game's fields, not part of the cover image. */}
+				<span className="game-card__caption">
+					<span className="game-card__name">{name}</span>
+					{details && <span className="game-card__details">{details}</span>}
+				</span>
 			</button>
 
 			<dialog
