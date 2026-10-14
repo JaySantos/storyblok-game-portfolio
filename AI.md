@@ -55,19 +55,23 @@ Create the following blocks in dry_run
 
 ## Prompt 2: (MCP-connected) sample content
 
-The prompt, as I wrote it:
+The prompt, in the improved form I would use now:
 
 ```
 Create 20 games, 5 genres and 5 studios
 
-for each game create a 300x400 image for the game cover, have all games reference a studio
+for each game create a 300x400 image for the game cover, do not add any game-related text to the image
+
+have all games reference a studio and a genre
 
 publish 15 of the 20 games
 ```
 
+This differs from what I first wrote in two ways: my original said only "have all games reference a studio", because genre was still a text field then, and it did not forbid text on the covers, which caused the problem described under "Corrections along the way". The improved version has not been run as written.
+
 I followed up with: spread the 5 drafts across genres and studios, one `games_page` with a grid of 20 cards, and organise everything in folders named Games, Studios and Genres.
 
-**What it produced:** 5 studios, 20 games (4 per genre, 4 per studio) and 5 genre stories, in three folders. Each game has a studio reference and its own cover image. It also made a `portfolio` page with one grid of 20 cards. 15 games are published and 5 are drafts.
+**What it produced** (from my original prompt): 5 studios, 20 games (4 per genre, 4 per studio) and 5 genre stories, in three folders. Each game has a studio reference and its own cover image. It also made a `portfolio` page with one grid of 20 cards. 15 games are published and 5 are drafts.
 
 - The covers are 300x400 gradients with the title on them, generated with a short Python script and uploaded through the MCP's upload tool.
 - All names, descriptions and contact details are invented.
