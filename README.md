@@ -45,8 +45,7 @@ You need a Storyblok space with the content model above. The sample content is n
 ### Connect the Visual Editor
 
 1. Go to **Settings > Visual Editor** and set the default environment to `https://localhost:5173/`.
-2. Open the `portfolio` story, click **Config** and type `/` in **Real path**.
-3. Edit the story in Storyblok. The page updates as you type.
+2. Open the `portfolio` story in Storyblok and edit it. The page updates as you type.
 
 ## Scripts
 
