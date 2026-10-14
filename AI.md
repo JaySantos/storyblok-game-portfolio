@@ -94,9 +94,11 @@ I want to:
 
 * In the public page: See only published games
 * In the Visual Editor: See both published and draft games
+
+use the isVisualEditor from @storyblok/react
 ```
 
-This is the small change made live with the AI. My first wording was: "both on my page and Visual Editor I am seeing both published and draft games. I want to see both in the Visual Editor, but only the published games when I open the public page". The improved version has not been run as written.
+This is the small change made live with the AI. My first wording was: "both on my page and Visual Editor I am seeing both published and draft games. I want to see both in the Visual Editor, but only the published games when I open the public page". My first wording did not name `isVisualEditor`: the assistant found the helper by reading the package. Other solutions I saw wrote a looser check of their own (true for any iframe, or for any URL with `_storyblok`), so the improved prompt names the helper. The improved version has not been run as written.
 
 **What it produced** (from my first wording): the assistant used `isVisualEditor()` from `@storyblok/react` to detect whether the page is open inside the Visual Editor. Inside the editor, it reads draft content with the preview token. Everywhere else, it reads published content with the public token. The preview token is only injected when running the dev server, so a production build does not contain it.
 
