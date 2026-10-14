@@ -9,6 +9,11 @@
 	padding: 2rem 1rem;
 }
 
+.games-count {
+	margin: 0 0 1.5rem;
+	color: #6b6b6b;
+}
+
 .game-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
