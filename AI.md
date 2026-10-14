@@ -3,7 +3,7 @@
 How AI tools were used to build this demo: the prompts that did the most work, and what was rewritten by hand.
 
 - **Assistant:** Claude Code, which handled both the Storyblok MCP work and the React code.
-- **Storyblok MCP server:** connected to Claude Code. All content-model and content work below went through it, apart from one component noted below.
+- **Storyblok MCP server:** connected to Claude Code. All content-model and content work below went through it, apart from one empty `game_card` component that I created by hand in the Storyblok UI before the timed session started (see Prompt 1), and the settings listed under "Other hand rewrites".
 - **Draft status:** AI output was treated as a draft and checked. Corrections are noted under each prompt and at the end.
 
 ## Prompt 1: (MCP-connected) content model
@@ -40,7 +40,7 @@ Create the following blocks in dry_run
 **What it produced:** four components in one pass: `studio`, `game_card`, `game_grid` and `games_page`.
 
 - The prompt used "Grid" and "Reference", which are not Storyblok field types. The assistant mapped Grid to a blocks field limited to `game_card`, and Reference to an option field that reads from internal stories filtered to the `studio` content type. It also limited `games_page.body` to `game_grid`. Those choices were its own, and they are still in place.
-- `game_card` already existed as an empty component, so the create call failed with a 422. The assistant updated it instead.
+- `game_card` already existed as an empty component, which I had created by hand in the Storyblok UI before starting, so the create call failed with a 422. The assistant updated it instead.
 
 **What I rewrote by hand, and why:** the model changed after the assistant noticed a problem with it, not because of the output itself.
 
@@ -96,6 +96,7 @@ Two follow-ups: "have the pop-up in the center of the screen", and, after I coul
 
 ## Other hand rewrites
 
+- I created an empty `game_card` component by hand in the Storyblok UI before the timed session started. The assistant then added its fields, instead of creating it from scratch.
 - After switching the code to use the public token everywhere I was seeing a "Loading..." message on the browser and a 403 unauthorized error on the log. I realised I also had to change the parameter in `useStoryblok` to `published` as well.
 - I added the Storyblok preview token to `.env`, and set the Visual Editor environment to `https://localhost:5173/` in the Storyblok settings. The assistant does not touch `.env`.
 
