@@ -2,17 +2,17 @@
 
 How AI tools were used to build this demo: the prompts that did the most work, and what was rewritten by hand.
 
-- **Before you reuse these prompts:** make sure the Storyblok connector (MCP server) is connected in your AI assistant and has access to the space you want to edit. If it is authorised for a different space, the calls fail with a 403 ("This token does not have access to this space"). The prompts below say `dry_run`; use the name of your own space.
+- **Before you reuse these prompts:** make sure the Storyblok connector (MCP server) is connected in your AI assistant and has access to the space you want to edit. If it is authorised for a different space, the calls fail with a 403 ("This token does not have access to this space"). The prompts below do not name a space, so tell your assistant which one to use.
 - **Assistant:** Claude Code, which handled both the Storyblok MCP work and the React code.
 - **Storyblok MCP server:** connected to Claude Code. All content-model and content work below went through it, apart from one empty `game_card` component that I created by hand in the Storyblok UI before the timed session started (see Prompt 1), and the settings listed under "Other hand rewrites".
 - **Draft status:** AI output was treated as a draft and checked. Corrections are noted under each prompt and at the end.
 
 ## Prompt 1: (MCP-connected) content model
 
-The prompt, as I first wrote it, with one change so you can reuse it as is: `genre` is already a reference to a new Genre content type. My original had `genre (Text)` and no Genre content type; I only added the Genre type and the reference later (see below).
+The prompt, in the improved form I would use now. It describes the final model: `game` is a content type that holds the fields, and `game_card` is a nestable that holds only a reference to a game. My original was different: `game_card` held all the fields, `genre` was a text field and there was no Genre content type. The model changed later (see below). The improved version has not been run as written.
 
 ```
-Create the following blocks in dry_run
+Create the following blocks
 
 - games_page (Content Type)
 	- Fields:
@@ -23,6 +23,10 @@ Create the following blocks in dry_run
 		- columns (Grid)
 
 - game_card (Nestable)
+	- Fields:
+		- game (Reference) - restricted to content type game
+
+- Game (Content Type)
 	- Fields:
 		- name (Text)
 		- genre (Reference) - restricted to content type genre
@@ -43,7 +47,7 @@ Create the following blocks in dry_run
 		- description (Textarea)
 ```
 
-**What it produced** (from my original prompt, without the Genre part): four components in one pass: `studio`, `game_card`, `game_grid` and `games_page`.
+**What it produced** (from my original prompt, with `game_card` holding all the fields and no Genre part): four components in one pass: `studio`, `game_card`, `game_grid` and `games_page`.
 
 - The prompt used "Grid" and "Reference", which are not Storyblok field types. The assistant mapped Grid to a blocks field limited to `game_card`, and Reference to an option field that reads from internal stories filtered to the `studio` content type. It also limited `games_page.body` to `game_grid`. Those choices were its own, and they are still in place.
 - `game_card` already existed as an empty component, which I had created by hand in the Storyblok UI before starting, so the create call failed with a 422. The assistant updated it instead.
@@ -55,23 +59,21 @@ Create the following blocks in dry_run
 
 ## Prompt 2: (MCP-connected) sample content
 
-The prompt, in the improved form I would use now:
+The prompt, in the improved form I would use now (it assumes the model from Prompt 1):
 
 ```
-Create 20 games, 5 genres and 5 studios
+Create 20 games, 5 genres and 5 studios, organize them in three folders (Games, Genres, Studios)
 
-for each game create a 300x400 image for the game cover, do not add any game-related text to the image
-
-have all games reference a studio and a genre
+for each game create a 300x400 image for the game cover, have all games reference a studio
 
 publish 15 of the 20 games
+
+Create a page similar to home where the games are shown in a grid, above the grid add a title block that says "Our Portfolio"
 ```
 
-This differs from what I first wrote in two ways: my original said only "have all games reference a studio", because genre was still a text field then, and it did not forbid text on the covers, which caused the problem described under "Corrections along the way". The improved version has not been run as written.
+This differs from what I first wrote. My original did not ask for the folders or the page. I asked for them in follow-ups: organise everything in folders named Games, Studios and Genres, one `games_page` with a grid of 20 cards, and spread the 5 drafts across genres and studios. The "Our Portfolio" title block is new: in what was built, the page title is a fixed heading in the React component, not a block. The improved version has not been run as written.
 
-I followed up with: spread the 5 drafts across genres and studios, one `games_page` with a grid of 20 cards, and organise everything in folders named Games, Studios and Genres.
-
-**What it produced** (from my original prompt): 5 studios, 20 games (4 per genre, 4 per studio) and 5 genre stories, in three folders. Each game has a studio reference and its own cover image. It also made a `portfolio` page with one grid of 20 cards. 15 games are published and 5 are drafts.
+**What it produced** (from my original prompt and follow-ups): 5 studios, 20 games (4 per genre, 4 per studio) and 5 genre stories, in three folders. Each game has a studio reference and its own cover image. It also made a `portfolio` page with one grid of 20 cards. 15 games are published and 5 are drafts.
 
 - The covers are 300x400 gradients with the title on them, generated with a short Python script and uploaded through the MCP's upload tool.
 - All names, descriptions and contact details are invented.
