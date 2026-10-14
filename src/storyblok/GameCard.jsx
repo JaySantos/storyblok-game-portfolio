@@ -27,6 +27,8 @@ export default function GameCard({ blok }) {
 				{cover?.filename && (
 					<img src={cover.filename} alt={cover.alt || name} width="300" height="400" />
 				)}
+				{/* The name is real text from the game's name field, not part of the cover image. */}
+				<span className="game-card__name">{name}</span>
 			</button>
 
 			<dialog
