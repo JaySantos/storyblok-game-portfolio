@@ -12,7 +12,7 @@ function Story({ slug }) {
 	const currentYear = new Date().getFullYear();
 	const story = useStoryblok(slug, {
 		version: VERSION,
-		resolve_relations: ['game_card.game', 'game_card.genre', 'game_card.studio', 'game.genre', 'game.studio'],
+		resolve_relations: ['game_card.game', 'game.genre', 'game.studio'],
 	});
 	if (!story?.content) {
 		return <div>Loading...</div>;
