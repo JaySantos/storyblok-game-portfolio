@@ -106,13 +106,6 @@ This is the small change made live with the AI. My first wording was: "both on m
 
 **What I rewrote by hand, and why:** nothing yet, because this prompt is used live.
 
-## Smaller follow-up prompts
-
-- The card popup. My prompt was: "remove the text field underneath each game, the name of the game is already on the card so it's unnecessary" and "When I click on one of the games I want a popup to open with a library card-like window showing all game info, the game cover on the top left Title and genre on the right and the rest of the info underneath it". Two follow-ups: "have the pop-up in the center of the screen", and, after I could not edit anything in the Visual Editor, "Can the pop-up be the game story?". The assistant built a native `<dialog>` styled as a library card, and a new game story page that shares one `LibraryCard` component with the popup. A resolved reference is not editable in place in the Visual Editor, so the popup itself cannot be edited from the portfolio page. Opening a game story in the editor shows the same card, and its fields update live. The popup layout, colours and copy are the assistant's. The centring fix was a second round after the first version.
-
-- "add to the top of the page a count of cards being shown, so it's easier for users to see the total number of games". The assistant added an "N games" line that counts only the cards that actually render.
-- "edit the portfolio page so the game in the grid also shows the genre and studio name in a smaller font under the title". The assistant read both names from the resolved references and added them as a second, smaller line on the card.
-
 ## Other hand rewrites
 
 - I created an empty `game_card` component by hand in the Storyblok UI before the timed session started. The assistant then added its fields, instead of creating it from scratch.
