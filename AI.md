@@ -68,10 +68,10 @@ for each game create a 300x400 image for the game cover, have all games referenc
 
 publish 15 of the 20 games
 
-Create a page similar to home where the games are shown in a grid, above the grid add a title block that says "Our Portfolio"
+Create a page called portfolio similar to home where the games are shown in a grid, each element of the grid is a game_card and shows each game's cover. Also write in the card the name of the game, its genre and the studio
 ```
 
-This differs from what I first wrote. My original did not ask for the folders or the page. I asked for them in follow-ups: organise everything in folders named Games, Studios and Genres, one `games_page` with a grid of 20 cards, and spread the 5 drafts across genres and studios. The "Our Portfolio" title block is new: in what was built, the page title is a fixed heading in the React component, not a block. The improved version has not been run as written.
+This differs from what I first wrote. My original did not ask for the folders or the page. I asked for them in follow-ups: organise everything in folders named Games, Studios and Genres, one `games_page` with a grid of 20 cards, and spread the 5 drafts across genres and studios. It also did not ask for the name, genre and studio to be written on the card: the name was painted on the cover image, and the genre and studio were added later as text under the title. In what was built, the card text comes from the game's fields, resolved through the `game` reference, and the page title "Our Portfolio" is a fixed heading in the React component, not content in Storyblok. The improved version has not been run as written.
 
 **What it produced** (from my original prompt and follow-ups): 5 studios, 20 games (4 per genre, 4 per studio) and 5 genre stories, in three folders. Each game has a studio reference and its own cover image. It also made a `portfolio` page with one grid of 20 cards. 15 games are published and 5 are drafts.
 
@@ -83,25 +83,32 @@ This differs from what I first wrote. My original did not ask for the folders or
 
 - The assistant could not build the prompt as written, because published and draft games need to be stories. It asked, and I made the model change described under Prompt 1.
 
-## Prompt 3: (frontend) card popup
+## Prompt 3: (frontend) draft versus published
 
-The prompt, as I wrote it:
+The prompt, in the form I plan to use in the walkthrough:
 
 ```
-* remove the text field underneath each game, the name of the game is already on the card so it's unnecessary
-* When I click on one of the games I want a popup to open with a library card-like window showing all game info, the game cover on the top left Title and genre on the right and the rest of the info underneath it
+I can see unpublished/draft games in the public portfolio page.
+
+I want to:
+
+* In the public page: See only published games
+* In the Visual Editor: See both published and draft games
 ```
 
-Two follow-ups: "have the pop-up in the center of the screen", and, after I could not edit anything in the Visual Editor, "Can the pop-up be the game story?".
+This is the small change made live with the AI. My first wording was: "both on my page and Visual Editor I am seeing both published and draft games. I want to see both in the Visual Editor, but only the published games when I open the public page". The improved version has not been run as written.
 
-**What it produced:** clicking a cover opens a native `<dialog>` styled as a library card: cover top left, title and genre on the right, then description, release date and studio details underneath. The popup and a new game story page share one `LibraryCard` component.
+**What it produced** (from my first wording): the assistant used `isVisualEditor()` from `@storyblok/react` to detect whether the page is open inside the Visual Editor. Inside the editor, it reads draft content with the preview token. Everywhere else, it reads published content with the public token. The preview token is only injected when running the dev server, so a production build does not contain it.
 
-- A resolved reference is not editable in place in the Visual Editor, so the popup itself cannot be edited from the portfolio page. Opening a game story in the editor shows the same card, and its fields update live.
-- The assistant also wrote a small `mode.js` with token and version logic: draft content with a preview token inside the Visual Editor, published content with the public token elsewhere. I removed it on purpose afterwards, to use the draft versus published question as the live change in the walkthrough. The app now reads draft content with the preview token everywhere, in the browser as well as in the Visual Editor.
+- The assistant had first written this logic as a small `mode.js` file during the main build. I removed it on purpose, so the app started with drafts shown everywhere, and I could use the problem as the live change. When I then gave it the prompt above, it wrote the same logic directly into `main.jsx`, `App.jsx` and `vite.config.js`.
+- It is not in the repository. I kept it out so I can apply it live in the walkthrough.
+- The limit: the editor only gets the preview token from the dev server. On a deployed site, the editor would show published content only, unless the token is supplied another way. Keeping the token off the browser entirely needs a server.
 
-**What I rewrote by hand, and why:** the popup layout, colours and copy are the assistant's. The centring fix was a second round after the first version.
+**What I rewrote by hand, and why:** nothing yet, because this prompt is used live.
 
 ## Smaller follow-up prompts
+
+- The card popup. My prompt was: "remove the text field underneath each game, the name of the game is already on the card so it's unnecessary" and "When I click on one of the games I want a popup to open with a library card-like window showing all game info, the game cover on the top left Title and genre on the right and the rest of the info underneath it". Two follow-ups: "have the pop-up in the center of the screen", and, after I could not edit anything in the Visual Editor, "Can the pop-up be the game story?". The assistant built a native `<dialog>` styled as a library card, and a new game story page that shares one `LibraryCard` component with the popup. A resolved reference is not editable in place in the Visual Editor, so the popup itself cannot be edited from the portfolio page. Opening a game story in the editor shows the same card, and its fields update live. The popup layout, colours and copy are the assistant's. The centring fix was a second round after the first version.
 
 - "add to the top of the page a count of cards being shown, so it's easier for users to see the total number of games". The assistant added an "N games" line that counts only the cards that actually render.
 - "edit the portfolio page so the game in the grid also shows the genre and studio name in a smaller font under the title". The assistant read both names from the resolved references and added them as a second, smaller line on the card.
