@@ -2,13 +2,14 @@
 
 How AI tools were used to build this demo: the prompts that did the most work, and what was rewritten by hand.
 
+- **Before you reuse these prompts:** make sure the Storyblok connector (MCP server) is connected in your AI assistant and has access to the space you want to edit. If it is authorised for a different space, the calls fail with a 403 ("This token does not have access to this space"). The prompts below say `dry_run`; use the name of your own space.
 - **Assistant:** Claude Code, which handled both the Storyblok MCP work and the React code.
 - **Storyblok MCP server:** connected to Claude Code. All content-model and content work below went through it, apart from one empty `game_card` component that I created by hand in the Storyblok UI before the timed session started (see Prompt 1), and the settings listed under "Other hand rewrites".
 - **Draft status:** AI output was treated as a draft and checked. Corrections are noted under each prompt and at the end.
 
 ## Prompt 1: (MCP-connected) content model
 
-The prompt, as I wrote it:
+The prompt, as I first wrote it, with one change so you can reuse it as is: `genre` is already a reference to a new Genre content type. My original had `genre (Text)` and no Genre content type; I only added the Genre type and the reference later (see below).
 
 ```
 Create the following blocks in dry_run
@@ -24,7 +25,7 @@ Create the following blocks in dry_run
 - game_card (Nestable)
 	- Fields:
 		- name (Text)
-		- genre (Text)
+		- genre (Reference) - restricted to content type genre
 		- description (Textarea)
 		- studio (Reference) - restricted to content type studio
 		- cover (Image)
@@ -35,9 +36,14 @@ Create the following blocks in dry_run
 		- name (Text)
 		- contact (Text)
 		- description (Textarea)
+
+- Genre (Content Type)
+	- Fields:
+		- name (Text)
+		- description (Textarea)
 ```
 
-**What it produced:** four components in one pass: `studio`, `game_card`, `game_grid` and `games_page`.
+**What it produced** (from my original prompt, without the Genre part): four components in one pass: `studio`, `game_card`, `game_grid` and `games_page`.
 
 - The prompt used "Grid" and "Reference", which are not Storyblok field types. The assistant mapped Grid to a blocks field limited to `game_card`, and Reference to an option field that reads from internal stories filtered to the `studio` content type. It also limited `games_page.body` to `game_grid`. Those choices were its own, and they are still in place.
 - `game_card` already existed as an empty component, which I had created by hand in the Storyblok UI before starting, so the create call failed with a 422. The assistant updated it instead.
