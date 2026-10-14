@@ -1,12 +1,11 @@
 import { StoryblokComponent, useStoryblok } from '@storyblok/react';
 import { useParams } from 'react-router';
-import { version } from './storyblok/mode';
 
 export default function App() {
 	const currentYear = new Date().getFullYear();
 	const { '*': slug } = useParams();
 	const story = useStoryblok(slug || 'portfolio', {
-		version,
+		version: 'draft',
 		resolve_relations: ['game_card.game', 'game.genre', 'game.studio'],
 	});
 	if (!story?.content) {

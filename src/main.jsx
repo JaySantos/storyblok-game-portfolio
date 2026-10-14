@@ -14,10 +14,9 @@ import GamesPage from './storyblok/GamesPage';
 import GameGrid from './storyblok/GameGrid';
 import GameCard from './storyblok/GameCard';
 import Game from './storyblok/Game';
-import { accessToken } from './storyblok/mode';
 
 storyblokInit({
-	accessToken,
+	accessToken: import.meta.env.STORYBLOK_PREVIEW_API_TOKEN,
 	apiOptions: {
 		/** Set the correct region for your space. Learn more: https://www.storyblok.com/docs/packages/storyblok-js */
 		region: import.meta.env.STORYBLOK_REGION || 'eu',

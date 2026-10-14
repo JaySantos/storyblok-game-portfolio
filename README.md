@@ -13,7 +13,7 @@ A small Storyblok demo: a portfolio of (fictional) indie games financed by HW&T,
 | `genre` | Content type | `name`, `description` |
 | `studio` | Content type | `name`, `contact`, `description` |
 
-The page renders `games_page` > `game_grid` > `game_card`. A card holds only a reference, so its name and cover come from the referenced `game` story. The frontend asks the API to resolve that reference (`resolve_relations: ['game_card.game', 'game.genre', 'game.studio']` in [src/App.jsx](src/App.jsx)). Games that are not published are not resolved when reading published content, so their cards are skipped in [src/storyblok/GameCard.jsx](src/storyblok/GameCard.jsx).
+The page renders `games_page` > `game_grid` > `game_card`. A card holds only a reference, so its name and cover come from the referenced `game` story. The frontend asks the API to resolve that reference (`resolve_relations: ['game_card.game', 'game.genre', 'game.studio']` in [src/App.jsx](src/App.jsx)). A card whose game cannot be resolved is skipped in [src/storyblok/GameCard.jsx](src/storyblok/GameCard.jsx).
 
 ## Run it
 
@@ -28,12 +28,11 @@ You need a Storyblok space with the content model above. The sample content is n
 2. Create a `.env` file (it is gitignored) from `.env.example`:
 
    ```sh
-   STORYBLOK_PUBLIC_API_TOKEN=<public access token>
    STORYBLOK_PREVIEW_API_TOKEN=<preview access token>
    STORYBLOK_REGION=eu
    ```
 
-   Find both tokens in **Settings > Access Tokens**. The public token reads published content and is used everywhere. The preview token reads drafts and is only used inside the Visual Editor, and only by the dev server: it is not included in production builds. If you leave it out, the editor falls back to the public token and shows published content.
+   Find the token in **Settings > Access Tokens**. The app reads draft content with the preview token, so unpublished games show up on the page.
 
 3. Start the dev server. It runs over HTTPS (a local certificate is created for you), which the Visual Editor requires:
 
