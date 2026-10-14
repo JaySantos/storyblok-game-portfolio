@@ -15,7 +15,7 @@ export default function GamesPage({ blok }) {
 
 	return (
 		<main {...storyblokEditable(blok)} className="games-page">
-			<h1>HW&amp;T Game Portfolio</h1>
+			<h1>Our Portfolio</h1>
 			<p className="games-count">
 				{count} {count === 1 ? 'game' : 'games'}
 			</p>

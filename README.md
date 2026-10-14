@@ -1,6 +1,6 @@
-# HW&T Game Portfolio
+# Game Portfolio
 
-A small Storyblok demo: a portfolio of (fictional) indie games financed by HW&T, built with React and Storyblok's `blueprint-core-react` starter. The content model and sample content were created through Storyblok's MCP server using an AI assistant. See [AI.md](AI.md) for how.
+A small Storyblok demo: a portfolio of (fictional) indie games, built with React and Storyblok's `blueprint-core-react` starter. The content model and sample content were created through Storyblok's MCP server using an AI assistant. See [AI.md](AI.md) for how.
 
 ## Content model
 
