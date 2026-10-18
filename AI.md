@@ -84,7 +84,7 @@ In the space with ID <SPACE ID> and region <REGION>:
 
 Add a Text field called platform to the game content type. Keep all its existing fields.
 
-Give each of the 5 games a platform: PC for games 1 and 2, Mobile for games 3 and 4, Console for game 5. For each game, read its current content first and change only the platform field. Republish the games that are currently published, and leave the drafts as drafts.
+Give each of the games a platform: PC, Mobile, or Console. For each game, read its current content first and change only the platform field. Republish the games that are currently published, and leave the drafts as drafts.
 
 Then, in the game card on the portfolio page, show the platform as text on a third line, under the genre and studio line, in the same smaller font. Read it from the game's platform field, and do not write it in the image. Do not change the popup.
 
